@@ -3,7 +3,7 @@
  * Eén zelfstandig bestand. Sluit overal in met:
  *
  *   <div id="flexi-checker-container-leadgen"></div>
- *   <script src="https://nestor-group.github.io/tools/flexi-pc-checker.js" defer></script>
+ *   <script src="https://nestor-group.github.io/tools-website/flexi-pc-checker.js" defer></script>
  *
  * Inhoud aanpassen? Pas alleen het CONFIG-blok hieronder aan.
  * De logica eronder hoef je normaal niet aan te raken.

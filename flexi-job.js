@@ -3,7 +3,7 @@
  * Eén zelfstandig bestand. Sluit overal in met:
  *
  *   <div id="flexi-job-tool"></div>
- *   <script src="https://nestor-group.github.io/tools/flexi-job.js" defer></script>
+ *   <script src="https://nestor-group.github.io/tools-website/flexi-job.js" defer></script>
  *
  * Inhoud aanpassen? Pas alleen het CONFIG-blok hieronder aan.
  * De logica eronder hoef je normaal niet aan te raken.

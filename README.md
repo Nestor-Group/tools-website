@@ -25,7 +25,7 @@ Plak de mount-div en het script waar de tool moet verschijnen, bijvoorbeeld:
 
 ```html
 <div id="flexi-job-tool"></div>
-<script src="https://nestor-group.github.io/tools/flexi-job.js" defer></script>
+<script src="https://nestor-group.github.io/tools-website/flexi-job.js" defer></script>
 ```
 
 Voor de andere tools vervang je de mount-div en de bestandsnaam volgens de tabel.
@@ -42,19 +42,12 @@ hoef je niet aan te raken.
 
 ## Een aanpassing live zetten
 
-Deze repo is **privé**. Bij elke push (of merge) naar `main` zet de Action **Publiceer tools**
-enkel de bestanden uit [`publish-list.txt`](publish-list.txt) in de publieke repo
-[`Nestor-Group/tools`](https://github.com/Nestor-Group/tools), die via GitHub Pages online staat op
-`https://nestor-group.github.io/tools/<bestand>`.
+Deze repo staat via **GitHub Pages** online op `https://nestor-group.github.io/tools-website/<bestand>`.
+Push (of merge) je naar `main`, dan staat de nieuwe versie binnen ongeveer een minuut online.
+Browsers bewaren de bestanden maximaal 10 minuten. Je hoeft niets in het CMS aan te passen.
 
-- Binnen ongeveer een minuut staat de nieuwe versie online; browsers bewaren ze maximaal 10 minuten.
-- De publieke repo krijgt telkens één nieuwe commit, zonder geschiedenis.
-- **Wat in een tool-bestand staat, is publiek** (bezoekers downloaden het in hun browser).
-  Zet er dus nooit coëfficiënten, wachtwoorden of API-sleutels in.
-- Een nieuw bestand publiek maken? Voeg het toe aan `publish-list.txt`.
-
-De Action gebruikt de secret `TOOLS_PUBLISH_TOKEN`: een fine-grained token dat enkel `Contents: read & write` heeft op `Nestor-Group/tools`.
-Het token vervalt na een jaar; maak dan een nieuw aan en vervang de secret.
+**Deze repo is publiek.** Zet er dus nooit coëfficiënten, prijzen, wachtwoorden of API-sleutels in,
+ook niet tijdelijk: wat ooit gecommit is, blijft in de geschiedenis staan.
 
 ## Lokaal testen
 

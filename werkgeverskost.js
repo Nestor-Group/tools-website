@@ -3,7 +3,7 @@
  * Eén zelfstandig bestand. Sluit overal in met:
  *
  *   <div id="werkgeverskost-tool"></div>
- *   <script src="https://nestor-group.github.io/tools/werkgeverskost.js" defer></script>
+ *   <script src="https://nestor-group.github.io/tools-website/werkgeverskost.js" defer></script>
  *
  * De tool toont GEEN bedrag: de bezoeker vult zijn situatie en gegevens in,
  * Nestor bezorgt de berekening per e-mail. Coëfficiënten staan dus niet in deze (publieke) code.
