@@ -31,17 +31,25 @@ jobs:
 
       - name: Publiceren naar Nestor-Group/tools
         env:
+          # Voorkeur: fine-grained token met enkel "Contents: read & write" op Nestor-Group/tools.
+          PUBLISH_TOKEN: ${{ secrets.TOOLS_PUBLISH_TOKEN }}
+          # Alternatief: deploy key met schrijfrecht op Nestor-Group/tools (als de organisatie dat toelaat).
           DEPLOY_KEY: ${{ secrets.TOOLS_DEPLOY_KEY }}
         run: |
-          [ -n "$DEPLOY_KEY" ] || { echo "::error::Secret TOOLS_DEPLOY_KEY ontbreekt"; exit 1; }
-          mkdir -p ~/.ssh
-          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
           cd out
           git init -q -b main
           git config user.name "nestor-tools-publisher"
           git config user.email "actions@users.noreply.github.com"
           git add -A
           git commit -q -m "Publicatie $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push -f git@github.com:Nestor-Group/tools.git main
+          if [ -n "$PUBLISH_TOKEN" ]; then
+            git push -f "https://x-access-token:${PUBLISH_TOKEN}@github.com/Nestor-Group/tools.git" main
+          elif [ -n "$DEPLOY_KEY" ]; then
+            mkdir -p ~/.ssh
+            printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+            chmod 600 ~/.ssh/id_ed25519
+            ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+            git push -f git@github.com:Nestor-Group/tools.git main
+          else
+            echo "::error::Geen secret TOOLS_PUBLISH_TOKEN of TOOLS_DEPLOY_KEY ingesteld"; exit 1
+          fi

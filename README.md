@@ -53,7 +53,8 @@ enkel de bestanden uit [`publish-list.txt`](publish-list.txt) in de publieke rep
   Zet er dus nooit coëfficiënten, wachtwoorden of API-sleutels in.
 - Een nieuw bestand publiek maken? Voeg het toe aan `publish-list.txt`.
 
-De Action gebruikt de secret `TOOLS_DEPLOY_KEY`: een deploy key die enkel naar `Nestor-Group/tools` mag schrijven.
+De Action gebruikt de secret `TOOLS_PUBLISH_TOKEN`: een fine-grained token dat enkel `Contents: read & write` heeft op `Nestor-Group/tools`.
+Het token vervalt na een jaar; maak dan een nieuw aan en vervang de secret.
 
 ## Lokaal testen
 
