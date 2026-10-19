@@ -147,8 +147,9 @@ ${P}${ROOT}-money input{padding-left:30px!important}
 ${P}${ROOT} .${ROOT}-txt,${P}${ROOT} .hs-input:not([type=checkbox]):not([type=radio]):not([type=file]){width:100%!important;padding:12px 14px;border:1px solid rgba(247,49,9,.18);border-radius:14px;background:#feeae6;color:#575757;font-size:15px;outline:none;font-family:inherit}
 ${P}${ROOT} .${ROOT}-txt:focus,${P}${ROOT} .hs-input:focus{border-color:#f73109}
 ${P}${ROOT}-opts{display:flex;flex-direction:column;gap:8px}
-${P}${ROOT}-opt{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:15px;color:#575757;padding:10px 12px;border:1px solid rgba(87,87,87,.14);border-radius:14px;background:#f6f4ef}
-${P}${ROOT}-opt.on{border-color:#f73109;background:#feeae6}
+${P}${ROOT}-opt{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:15px;color:#575757;padding:10px 12px;border:1px solid rgba(247,49,9,.18);border-radius:14px;background:#feeae6;transition:background-color .15s,border-color .15s}
+${P}${ROOT}-opt:hover{border-color:rgba(247,49,9,.45)}
+${P}${ROOT}-opt.on{border-color:#f73109;background:#fcd3c9;box-shadow:0 0 0 1px #f73109 inset}
 ${P}${ROOT}-opt input{accent-color:#f73109;margin:3px 0 0;flex:none;width:16px;height:16px}
 ${P}${ROOT}-opt small{display:block;font-size:12px;color:rgba(87,87,87,.62);margin-top:2px}
 ${P}${ROOT} input[type=range]{width:100%;accent-color:#f73109;margin:6px 0 0}
