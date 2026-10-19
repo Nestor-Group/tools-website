@@ -92,7 +92,24 @@
     contactTitle: "Bijna klaar! Waar mogen we je prijs naartoe sturen?",
     backLabel: "Wijzig",
     thanksText: "Bedankt! We bekijken je aanvraag en bezorgen je snel een prijs op maat.",
-    loadError: "Het formulier kon niet geladen worden. Herlaad de pagina en probeer opnieuw."
+    loadError: "Het formulier kon niet geladen worden. Herlaad de pagina en probeer opnieuw.",
+
+    // Extra e-mailcontrole vóór verzending (bovenop HubSpot, dat al gratis providers blokkeert).
+    emailCheck: {
+      // Controleert via DNS (MX-record) of het domein e-mail kan ontvangen. Enkel het domein wordt opgezocht.
+      dnsUrl: "https://cloudflare-dns.com/dns-query?type=MX&name=",
+      // Wegwerp-/tijdelijke e-maildiensten.
+      blockedDomains: [
+        "mailinator.com", "yopmail.com", "yopmail.fr", "10minutemail.com", "guerrillamail.com", "guerrillamail.net",
+        "sharklasers.com", "grr.la", "temp-mail.org", "tempmail.com", "tempmail.net", "temp-mail.io", "trashmail.com",
+        "trashmail.de", "getnada.com", "nada.email", "maildrop.cc", "dispostable.com", "fakeinbox.com",
+        "throwawaymail.com", "mohmal.com", "emailondeck.com", "burnermail.io", "mintemail.com", "mailnesia.com",
+        "spamgourmet.com", "mytemp.email", "tempr.email", "discard.email", "moakt.com", "33mail.com", "inboxkitten.com"
+      ],
+      checking: "E-mailadres controleren…",
+      invalid: "Dit e-mailadres lijkt niet te bestaan. Controleer het even (tikfout in het domein?).",
+      disposable: "Gebruik je zakelijke e-mailadres, geen tijdelijk adres."
+    }
   };
 
   /* ------------------------------------------------------------------ *
@@ -355,6 +372,72 @@ ${P}${ROOT} .submitted-message{background:#feeae6;border-radius:18px;padding:24p
         setHsValue(hsForm, h.hiddenFields[k], val);
       });
     }
+
+    // --- Extra e-mailcontrole: onderschept de verzending, controleert het domein en verzendt daarna opnieuw. ---
+    var emailOk = false;
+
+    function emailField(form) {
+      var input = form.querySelector('input[name="email"]');
+      return input ? { input: input, wrap: input.closest(".hs-form-field") || input.parentNode } : null;
+    }
+
+    function showEmailError(form, msg) {
+      var f = emailField(form);
+      if (!f) return;
+      var el = f.wrap.querySelector("." + ROOT + "-email-err");
+      if (!msg) { if (el) el.remove(); return; }
+      if (!el) {
+        el = document.createElement("p");
+        el.className = ROOT + "-email-err";
+        el.style.cssText = "color:#d92b07;font-size:12px;font-weight:500;margin:4px 0 0";
+        f.wrap.appendChild(el);
+      }
+      el.textContent = msg;
+    }
+
+    // Resultaat: "ok", "disposable" of "invalid". Bij een netwerkfout laten we door (HubSpot controleert nog).
+    function checkEmail(email) {
+      var domain = String(email).split("@").pop().trim().toLowerCase();
+      if (!domain || domain.indexOf(".") === -1) return Promise.resolve("invalid");
+      if (C.emailCheck.blockedDomains.indexOf(domain) !== -1) return Promise.resolve("disposable");
+      return fetch(C.emailCheck.dnsUrl + encodeURIComponent(domain), { headers: { Accept: "application/dns-json" } })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.Status === 3) return "invalid"; // NXDOMAIN: domein bestaat niet
+          var mx = (d.Answer || []).filter(function (a) { return a.type === 15; });
+          var nullMx = mx.length === 1 && /^0\s+\.?$/.test(String(mx[0].data).trim()); // domein ontvangt expliciet geen mail
+          return mx.length && !nullMx ? "ok" : "invalid";
+        })
+        .catch(function () { return "ok"; });
+    }
+
+    mount.addEventListener("submit", function (e) {
+      var form = e.target;
+      if (!hsForm || form !== hsForm || emailOk) { emailOk = false; return; }
+      var f = emailField(form);
+      if (!f || !f.input.value.trim()) return; // leeg: HubSpot toont zelf de foutmelding
+      e.preventDefault();
+      e.stopPropagation();
+      var btn = form.querySelector(".hs-button");
+      var label = btn && btn.value;
+      if (btn) { btn.disabled = true; btn.value = C.emailCheck.checking; }
+      checkEmail(f.input.value).then(function (res) {
+        if (btn) { btn.disabled = false; btn.value = label; }
+        if (res !== "ok") {
+          showEmailError(form, res === "disposable" ? C.emailCheck.disposable : C.emailCheck.invalid);
+          f.input.focus();
+          return;
+        }
+        showEmailError(form, null);
+        emailOk = true;
+        if (form.requestSubmit) form.requestSubmit(btn || undefined); else if (btn) btn.click();
+        setTimeout(function () { emailOk = false; }, 0);
+      });
+    }, true);
+
+    mount.addEventListener("input", function (e) {
+      if (hsForm && e.target && e.target.name === "email") showEmailError(hsForm, null);
+    });
 
     function onOwnInput(e) { if (!target.contains(e.target)) update(); }
     mount.addEventListener("input", onOwnInput);
