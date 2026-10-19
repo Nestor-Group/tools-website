@@ -157,6 +157,7 @@ ${P}${ROOT} .inputs-list{list-style:none;padding:0;margin:0 0 8px}
 ${P}${ROOT} .inputs-list label{font-weight:600}
 ${P}${ROOT} .hs-form a{color:#f73109}
 ${P}${ROOT} .legal-consent-container{font-size:12px;line-height:1.5;color:rgba(87,87,87,.8)}
+${P}${ROOT} .grecaptcha-badge{visibility:visible!important} /* nestor.be verbergt dit sitebreed; Google vereist dat het zichtbaar is */
 ${P}${ROOT} .hs-button{border:none;background:#f73109;color:#fff;border-radius:999px;padding:14px 32px;font-weight:700;font-size:15px;cursor:pointer;margin-top:4px;font-family:inherit;-webkit-appearance:none}
 ${P}${ROOT} .hs-button:hover{background:#d92b07}
 ${P}${ROOT} .hs-button:disabled{opacity:.5;cursor:not-allowed}
