@@ -34,30 +34,57 @@
 
     disclaimer: "<strong>Disclaimer:</strong> Deze tool is louter informatief. Er kunnen geen rechten aan worden ontleend. Raadpleeg altijd de officiële bronnen voor de meest actuele en correcte informatie.",
 
-    // Bron voor de lijsten hieronder: Securex Lex4You, "Flexi-jobs: mag ik ermee aan de slag in mijn sector?" (24/09/2026),
-    // op basis van de wet van 28/06/2026 en het KB van 30/08/2026.
+    // Bron: Securex, "Flexi-jobs in de verschillende sectoren", situatie op 18 september 2026,
+    // en Lex4You "Flexi-jobs: mag ik ermee aan de slag in mijn sector?" (24/09/2026).
     // Principe: sinds 1 juli 2026 zijn flexi-jobs mogelijk in elke sector, behalve waar een opt-out geldt.
+    //
+    // PC-nummers in deze lijsten schrijf je ZONDER nullen op het einde (322.010 -> "322.01", 143.000 -> "143").
+    // Een sub-PC zonder eigen regel valt automatisch onder zijn hoofd-PC (bv. 144.200 -> 144).
 
-    // Sectoren met een VOLLEDIGE opt-out: de RSZ aanvaardt er geen flexi-jobs.
+    // VOLLEDIGE opt-out: de RSZ aanvaardt er geen flexi-jobs.
     optOut: ["144"],
     optOutText: "Nee, jouw sector (PC {pc}) heeft een geldige opt-out en komt niet in aanmerking voor flexi-jobs.",
 
-    // Sectoren met een GEDEELTELIJKE opt-out die de RSZ toepast (key = PC). Flexi-jobs kunnen er enkel binnen de grenzen hieronder.
+    // GEDEELTELIJKE opt-out via wet of koninklijk besluit (de RSZ blokkeert dit). Key = PC.
     beperkteOptOutHeading: "Gedeeltelijk: in jouw sector gelden beperkingen.",
     beperkteOptOut: {
-      "121": "Sinds <strong>1 oktober 2026</strong> zijn flexi-jobs in de schoonmaaksector (PC 121) enkel nog mogelijk voor <strong>gepensioneerden</strong>.",
-      "143": "In de zeevisserij (PC 143) zijn flexi-jobs uitgesloten voor het <strong>varend personeel</strong>. Voor andere functies kan het wel.",
-      "145": "In de tuinbouw (PC 145) zijn flexi-jobs uitgesloten, <strong>met uitzondering van de aanleg en het onderhoud van parken en tuinen</strong>.",
+      "121": "Sinds <strong>1 oktober 2026</strong> zijn flexi-jobs in de schoonmaaksector (PC 121) enkel nog mogelijk voor <strong>(vervroegd) gepensioneerden</strong>, en voor maximaal <strong>10%</strong> van het totale arbeidsvolume bij de werkgever.",
+      "143": "In de zeevisserij (PC 143) zijn flexi-jobs uitgesloten voor het <strong>varend personeel</strong>. Walpersoneel en personeel van de pakhuizen mag wel, in de pakhuizen binnen een maximale verhouding tot het vaste personeel.",
+      "145": "In de tuinbouw (PC 145) zijn flexi-jobs uitgesloten, <strong>met uitzondering van de aanleg en het onderhoud van parken en tuinen</strong> (PC 145.040).",
       "320": "Bij begrafenisondernemingen (PC 320) mogen enkel de taken van een <strong>gelegenheidsarbeider</strong> door een flexi-jobber worden uitgevoerd.",
       "323": "In het beheer van gebouwen (PC 323) geldt de uitsluiting enkel voor <strong>dienstboden</strong>. Voor andere functies kan het wel.",
-      "331": "In de Vlaamse welzijns- en gezondheidssector (PC 331) kan het, maar in de <strong>kinderopvang</strong> mag maximaal <strong>20%</strong> van het totaal aantal gewerkte uren met flexi-jobs gepresteerd worden.",
-      "322.01": "Voor dienstencheque-activiteiten (PC 322.01) is een flexi-job toegelaten tot <strong>drie maanden na de eerste Dimona</strong> bij de werkgever. Daarna is een contract van onbepaalde duur verplicht, waardoor een flexi-job in de praktijk niet langer kan."
+      "331": "In de Vlaamse welzijns- en gezondheidssector (PC 331) kan het, maar in de <strong>kinderopvang</strong> (NACE 88.91) mag maximaal <strong>20%</strong> van het totale arbeidsvolume met flexi-jobs gepresteerd worden.",
+      "322.01": "Voor dienstencheque-activiteiten (PC 322.010) is een flexi-job toegelaten tot <strong>drie maanden na de eerste Dimona</strong> bij de werkgever. Daarna is een contract van onbepaalde duur verplicht, waardoor een flexi-job in de praktijk niet langer kan."
     },
 
-    // Sectoren zonder RSZ-opt-out, maar waar sectorale afspraken (cao) beperkingen kunnen opleggen (bv. bouw PC 124).
-    sectoraleBeperking: ["124"],
-    sectoraleBeperkingHeading: "Ja, sinds 1 juli 2026 kan dit — maar let op.",
-    sectoraleBeperkingText: "Sinds <strong>1 juli 2026</strong> is flexi-jobben mogelijk in jouw sector (PC {pc}). De sector vroeg wel een <strong>gedeeltelijke uitsluiting</strong> aan, maar die staat niet op de lijst van opt-outs die de RSZ toepast. Sectorale afspraken (cao) kunnen wel beperkingen opleggen. Check dit dus goed. (Onder voorbehoud)",
+    // Beperkingen via een SECTORALE CAO. De RSZ blokkeert deze niet: de werkgever is zelf verantwoordelijk.
+    // Key = PC. Waarde = tekst, of { heading, text } voor een eigen titel.
+    sectoraleBeperkingHeading: "Ja, maar je sector legt beperkingen op.",
+    sectoraleBeperkingNote: "Deze regels komen uit een sectorale cao. De RSZ blokkeert ze niet, maar de werkgever moet ze wel naleven. (Onder voorbehoud)",
+    sectoraleBeperking: {
+      "106.02": "In de betonindustrie (PC 106.020) mag een flexi-jobber niet ingezet worden in functies waarvoor <strong>tijdelijke werkloosheid</strong> geldt, of als hij al <strong>tijdskrediet</strong> geniet bij een andere werkgever in de sector.",
+      "112": "In het garagebedrijf (PC 112) moet een flexi-jobber die technisch werkt aan <strong>hybride, elektrische of waterstofvoertuigen</strong> het sectorale certificaat 'veiligheid' hebben.",
+      "149.02": "In het koetswerk (PC 149.020) moet een flexi-jobber die technisch werkt aan <strong>hybride, elektrische of waterstofvoertuigen</strong> het sectorale certificaat 'veiligheid' hebben.",
+      "115": { heading: "In principe niet: je sector sluit flexi-jobs uit.", text: "In het glasbedrijf (PC 115.020, 115.030 en 115.090) sluit de sectorale cao flexi-jobs <strong>uit</strong> zolang de cao loopt." },
+      "116": { heading: "In principe niet, tenzij er een akkoord is.", text: "In de chemie (PC 116) zijn flexi-jobs uitgesloten, <strong>behalve</strong> in ondernemingen met een akkoord met de syndicale delegatie (of de vakorganisaties). Geldig van 1 juli 2026 tot en met 31 december 2027." },
+      "207": { heading: "In principe niet, tenzij er een akkoord is.", text: "In de chemie (PC 207) zijn flexi-jobs uitgesloten, <strong>behalve</strong> in ondernemingen met een akkoord met de syndicale delegatie (of de vakorganisaties). Geldig van 1 juli 2026 tot en met 31 december 2027." },
+      "124": "In de bouw (PC 124) kan een flexi-job <strong>niet</strong> voor werk op een tijdelijke of mobiele bouwplaats waarvoor een basisveiligheidsopleiding vereist is. Voor alle andere activiteiten wel. <strong>(Vervroegd) gepensioneerden</strong> mogen wel op de werf, als ze de voorbije 10 jaar minstens 5 jaar ervaring op bouwplaatsen hebben. Geldig tot en met 30 juni 2027.",
+      "127": "In de brandstoffenhandel (PC 127) mogen flexi-jobs <strong>niet</strong> tijdens periodes van economische werkloosheid voor gelijkaardige functies, en <strong>niet</strong> ter vervanging van vaste werknemers.",
+      "128": { heading: "Enkel met een akkoord in je onderneming.", text: "In het huid- en lederbedrijf (PC 128) zijn flexi-jobs enkel mogelijk via een akkoord met de vakbondsafvaardiging (of de regionale vakbondssecretaris)." },
+      "136": "In de papier- en kartonbewerking (PC 136) mogen flexi-jobs enkel in <strong>5 welomschreven gevallen</strong>, met een maximum van <strong>52 dagen per jaar</strong> per werknemer en <strong>10%</strong> van de tewerkstelling (VTE). Geldig sinds 1 oktober 2026.",
+      "222": "In de papier- en kartonbewerking (PC 222) mogen flexi-jobs enkel in <strong>5 welomschreven gevallen</strong>, met een maximum van <strong>52 dagen per jaar</strong> per werknemer en <strong>10%</strong> van de tewerkstelling (VTE). Geldig sinds 1 oktober 2026.",
+      "211": { heading: "In principe niet, tenzij er een akkoord is.", text: "In de petroleumnijverheid en -handel (PC 211) zijn flexi-jobs uitgesloten, tenzij er een <strong>jaarlijks schriftelijk akkoord</strong> is met de voltallige syndicale delegatie." },
+      "226": "In de internationale handel, transport en logistiek (PC 226) moet een flexi-jobber in een <strong>veiligheidsfunctie</strong> voldoen aan alle voorwaarden van die functie (kennis, ervaring, opleiding).",
+      "307": "Bij verzekeringsmakelaars (PC 307) mogen flexi-jobs enkel in de <strong>omstandigheden en functies</strong> die de sectorale cao opsomt. Geldig tot en met 31 januari 2028."
+    },
+
+    // Positieve uitzonderingen en extra uitleg (key = PC of trefwoord).
+    specialCases: {
+      "132": "De opt-out voor technische landbouwwerken (PC 132) liep tot 30 juni 2026 en werd <strong>niet verlengd</strong>. Sinds 1 juli 2026 zijn flexi-jobs er dus toegelaten.",
+      "145.04": "Voor de aanleg en het onderhoud van <strong>parken en tuinen</strong> (PC 145.040) zijn flexi-jobs toegelaten. De rest van de tuinbouw (PC 145) is uitgesloten.",
+      "onderwijs": "De onderwijssector komt in aanmerking, zowel het officiële als het gesubsidieerde vrije onderwijs. Dit is niet gebonden aan een specifiek PC-nummer.",
+      "events": "De eventsector komt in aanmerking. Dit is niet gebonden aan één specifiek PC."
+    },
 
     // Catch-all: elke andere geldige sector komt sinds 1 juli 2026 in aanmerking.
     nieuwJuliHeading: "Ja! Sinds 1 juli 2026 komt jouw sector in aanmerking.",
@@ -65,13 +92,6 @@
 
     // Wettelijke beperkingen die in ELKE sector gelden. Wordt getoond bij elk positief antwoord.
     wettelijkeBeperkingenNote: "ℹ️ In elke sector wettelijk uitgesloten: artistieke, artistiek-technische en artistiek-ondersteunende functies, en sekswerk.",
-
-    // Sectoren met een extra positieve opmerking (key = PC of trefwoord).
-    specialCases: {
-      "132": "De opt-out voor technische landbouwwerken (PC 132) liep tot 30 juni 2026 en werd <strong>niet verlengd</strong>. Sinds 1 juli 2026 zijn flexi-jobs er dus toegelaten.",
-      "onderwijs": "De onderwijssector komt in aanmerking, zowel het officiële als het gesubsidieerde vrije onderwijs. Dit is niet gebonden aan een specifiek PC-nummer.",
-      "events": "De eventsector komt in aanmerking. Dit is niet gebonden aan één specifiek PC."
-    },
 
     leadForm: {
       defaultTitle: "Blijf op de hoogte of ontvang hulp",
@@ -193,7 +213,27 @@ ${P} .${ROOT}-msg-error{color:var(--fpc-primary);margin-top:8px}
   function run(mount) {
     var r = build(mount);
     var optOut = new Set(CONFIG.optOut);
-    var sectoraleBeperking = new Set(CONFIG.sectoraleBeperking);
+    var has = function (o, k) { return Object.prototype.hasOwnProperty.call(o, k); };
+
+    // "143.000" -> "143", "322.010" -> "322.01". Daarna: eerst het exacte (sub-)PC, dan het hoofd-PC.
+    function kandidaten(v) {
+      var n = v.indexOf(".") === -1 ? v : v.replace(/0+$/, "").replace(/\.$/, "");
+      var hoofd = n.split(".")[0];
+      return n === hoofd ? [n] : [n, hoofd];
+    }
+
+    // Zoekt de meest specifieke regel voor een PC. Geeft { uitkomst, key } terug.
+    function zoekRegel(v) {
+      var k = kandidaten(v);
+      for (var i = 0; i < k.length; i++) {
+        var c = k[i];
+        if (has(CONFIG.specialCases, c)) return { uitkomst: "speciale voorwaarden", key: c };
+        if (optOut.has(c)) return { uitkomst: "opt-out", key: c };
+        if (has(CONFIG.beperkteOptOut, c)) return { uitkomst: "gedeeltelijke opt-out", key: c };
+        if (has(CONFIG.sectoraleBeperking, c)) return { uitkomst: "sectorale beperking", key: c };
+      }
+      return { uitkomst: "vanaf juli", key: null };
+    }
     var lastTrackedPCValue = null;
 
     var ctaLink = '<p style="margin-top:16px;"><a href="' + CONFIG.cta.url +
@@ -215,16 +255,10 @@ ${P} .${ROOT}-msg-error{color:var(--fpc-primary);margin-top:8px}
         uitkomst = "geen invoer";
       } else if (!/^\d+(\.\d+)?$/.test(pcValue) && !CONFIG.specialCases.hasOwnProperty(pcValue)) {
         uitkomst = "ongeldige invoer";
-      } else if (optOut.has(pcValue)) {
-        uitkomst = "opt-out";
-      } else if (CONFIG.beperkteOptOut.hasOwnProperty(pcValue)) {
-        uitkomst = "gedeeltelijke opt-out";
-      } else if (sectoraleBeperking.has(pcValue)) {
-        uitkomst = "sectorale beperking";
-      } else if (CONFIG.specialCases.hasOwnProperty(pcValue)) {
-        uitkomst = "speciale voorwaarden";
       } else {
-        uitkomst = "vanaf juli";
+        var regel = zoekRegel(pcValue);
+        uitkomst = regel.uitkomst;
+        var key = regel.key;
       }
 
       var pc = esc(pcValue);
@@ -232,7 +266,7 @@ ${P} .${ROOT}-msg-error{color:var(--fpc-primary);margin-top:8px}
 
       if (uitkomst === "speciale voorwaarden") {
         html = '<div class="' + ROOT + '-note success"><p><strong>Ja, je komt in aanmerking!</strong></p>' +
-          "<p>" + CONFIG.specialCases[pcValue] + "</p>" + wettelijk + ctaLink + "</div>";
+          "<p>" + CONFIG.specialCases[key] + "</p>" + wettelijk + ctaLink + "</div>";
       } else if (uitkomst === "vanaf juli") {
         html = '<div class="' + ROOT + '-note success">' +
           "<p><strong>" + esc(CONFIG.nieuwJuliHeading) + "</strong></p>" +
@@ -243,14 +277,17 @@ ${P} .${ROOT}-msg-error{color:var(--fpc-primary);margin-top:8px}
       } else if (uitkomst === "gedeeltelijke opt-out") {
         html = '<div class="' + ROOT + '-note info">' +
           "<p><strong>" + esc(CONFIG.beperkteOptOutHeading) + "</strong></p>" +
-          "<p>" + CONFIG.beperkteOptOut[pcValue] + "</p>" +
+          "<p>" + CONFIG.beperkteOptOut[key] + "</p>" +
           wettelijk + ctaLink + "</div>";
         r.leadTitle.innerText = CONFIG.leadForm.defaultTitle;
         r.leadDesc.innerHTML = esc(CONFIG.leadForm.defaultDesc);
       } else if (uitkomst === "sectorale beperking") {
+        var sb = CONFIG.sectoraleBeperking[key];
+        if (typeof sb === "string") sb = { text: sb };
         html = '<div class="' + ROOT + '-note info">' +
-          "<p><strong>" + esc(CONFIG.sectoraleBeperkingHeading) + "</strong></p>" +
-          "<p>" + CONFIG.sectoraleBeperkingText.replace("{pc}", pc) + "</p>" +
+          "<p><strong>" + esc(sb.heading || CONFIG.sectoraleBeperkingHeading) + "</strong></p>" +
+          "<p>" + sb.text + "</p>" +
+          '<p style="font-size:.9em;">' + CONFIG.sectoraleBeperkingNote + "</p>" +
           wettelijk + ctaLink + "</div>";
         r.leadTitle.innerText = CONFIG.leadForm.defaultTitle;
         r.leadDesc.innerHTML = esc(CONFIG.leadForm.defaultDesc);
