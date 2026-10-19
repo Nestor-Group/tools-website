@@ -127,7 +127,7 @@ ${P}${ROOT}-lbl b{float:right;font-family:'Baloo Paaji 2',sans-serif;font-size:2
 ${P}${ROOT}-money{position:relative}
 ${P}${ROOT}-money span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:600;color:rgba(87,87,87,.62)}
 ${P}${ROOT}-money input{padding-left:30px!important}
-${P}${ROOT} .${ROOT}-txt,${P}${ROOT} .hs-input:not([type=checkbox]):not([type=radio]):not([type=file]){width:100%!important;padding:12px 14px;border:1px solid rgba(87,87,87,.14);border-radius:14px;background:#f6f4ef;color:#575757;font-size:15px;outline:none;font-family:inherit}
+${P}${ROOT} .${ROOT}-txt,${P}${ROOT} .hs-input:not([type=checkbox]):not([type=radio]):not([type=file]){width:100%!important;padding:12px 14px;border:1px solid rgba(247,49,9,.18);border-radius:14px;background:#feeae6;color:#575757;font-size:15px;outline:none;font-family:inherit}
 ${P}${ROOT} .${ROOT}-txt:focus,${P}${ROOT} .hs-input:focus{border-color:#f73109}
 ${P}${ROOT}-opts{display:flex;flex-direction:column;gap:8px}
 ${P}${ROOT}-opt{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:15px;color:#575757;padding:10px 12px;border:1px solid rgba(87,87,87,.14);border-radius:14px;background:#f6f4ef}
